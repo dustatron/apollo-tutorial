@@ -1,6 +1,27 @@
 const { gql } = require("apollo-server");
 
 const typeDefs = gql`
+  type Query {
+    launches: [Launch]!
+    launch(id: ID!): Launch
+    me: User
+  }
+
+  type Mutation {
+    bookTrips(launchId: [ID!]): TripUpdateResponse!
+    cancelTrip(launchId: ID!): TripUpdateResponse!
+    login(email: String): String # login token
+  }
+
+  """
+  Mutation response
+  """
+  type TripUpdateResponse {
+    success: Boolean!
+    message: String
+    launches: [Launch]
+  }
+
   type Launch {
     id: ID!
     site: String
